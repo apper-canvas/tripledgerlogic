@@ -60,7 +60,7 @@ const categoryOptions = categories.map(cat => ({ value: cat.id, label: cat.name 
   const currencyOptions = currencies.map(curr => ({ value: curr, label: curr }))
   const paymentModeOptions = paymentModes?.map(mode => ({ value: mode.id, label: mode.name })) || []
 
-  return (
+return (
     <AnimatePresence>
       {show && (
         <motion.div
@@ -74,7 +74,7 @@ const categoryOptions = categories.map(cat => ({ value: cat.id, label: cat.name 
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
-            className="bg-white dark:bg-surface-800 rounded-2xl p-6 w-full max-w-md shadow-neu-light dark:shadow-neu-dark"
+            className="bg-white dark:bg-surface-800 rounded-2xl p-6 w-full max-w-md shadow-neu-light dark:shadow-neu-dark max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between mb-6">

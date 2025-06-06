@@ -3,7 +3,7 @@ import ExpenseCard from '@/components/molecules/ExpenseCard'
 import Icon from '@/components/atoms/Icon'
 import Text from '@/components/atoms/Text'
 
-const ExpenseList = ({ expenses, tripCurrency, categories, paymentModes, onEditExpense, onDeleteExpense, onShowReceipt }) => {
+const ExpenseList = ({ expenses, tripCurrency, categories, paymentModes, onEditExpense, onDeleteExpense, onShowReceipt, showCalendarToggle = false, onToggleCalendar }) => {
   const getCategoryInfo = (categoryId) => {
     return categories.find(cat => cat.id === categoryId) || categories[3]
   }
@@ -12,12 +12,22 @@ const ExpenseList = ({ expenses, tripCurrency, categories, paymentModes, onEditE
     return paymentModes?.find(mode => mode.id === paymentModeId) || { name: 'Cash', icon: 'Banknote' }
   }
 
-  return (
+return (
     <div className="bg-white dark:bg-surface-800 rounded-2xl shadow-card border border-surface-200 dark:border-surface-700 overflow-hidden">
-      <div className="p-6 border-b border-surface-200 dark:border-surface-700">
+      <div className="p-6 border-b border-surface-200 dark:border-surface-700 flex items-center justify-between">
         <Text as="h3" className="text-lg font-semibold text-surface-900 dark:text-surface-100">
           Expenses ({expenses.length})
         </Text>
+        {showCalendarToggle && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onToggleCalendar}
+            iconName="Calendar"
+          >
+            Calendar View
+          </Button>
+        )}
       </div>
 
       <div className="divide-y divide-surface-200 dark:divide-surface-700">

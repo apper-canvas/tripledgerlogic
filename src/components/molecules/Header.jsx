@@ -17,52 +17,56 @@ const Header = ({ trips, selectedTrip, onSelectTrip, darkMode, onToggleDarkMode 
             <div className="flex items-center space-x-2">
               <Icon name="Plane" className="h-8 w-8 text-primary" />
               <Text as="h1" className="text-2xl font-bold text-surface-900 dark:text-surface-50">TripLedger</Text>
-            </div>
-
-            <div className="hidden sm:block">
-              <TripSelector
-                value={selectedTrip?.id || ''}
-                onChange={onSelectTrip}
-                options={tripOptions}
-              />
-            </div>
 </div>
-<div className="flex items-center space-x-3">
-            <Button
-              variant="outline"
-              size="sm"
-              iconName="Plus"
-              onClick={() => navigate('/new-trip')}
-              className="hidden sm:flex"
-            >
-              New Trip
-            </Button>
-<Button
-              variant="outline"
-              size="sm"
-              iconName="CreditCard"
-              onClick={() => navigate('/payment-modes')}
-              className="hidden md:flex"
-            >
-              Payment Modes
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              iconName="Tag"
-              onClick={() => navigate('/categories')}
-              className="hidden sm:flex"
-            >
-              Categories
-            </Button>
-            <Button
-              onClick={onToggleDarkMode}
-              variant="secondary"
-              iconName={darkMode ? "Sun" : "Moon"}
-              iconSize={20}
-              className="p-2"
-            >
-            </Button>
+
+            <div className="flex items-center space-x-3">
+              <Button 
+                variant="outline" 
+                onClick={() => navigate('/calendar')} 
+                iconName="Calendar"
+                className="hidden sm:flex"
+              >
+                Calendar
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                onClick={() => navigate('/categories')} 
+                iconName="Tag"
+                className="hidden sm:flex"
+              >
+                Categories
+              </Button>
+
+              <Button
+                variant="outline"
+                size="sm"
+                iconName="Plus"
+                onClick={() => navigate('/new-trip')}
+                className="hidden sm:flex"
+              >
+                New Trip
+              </Button>
+
+              <Button
+                variant="outline"
+                size="sm"
+                iconName="CreditCard"
+                onClick={() => navigate('/payment-modes')}
+                className="hidden md:flex"
+              >
+                Payment Modes
+              </Button>
+
+              <Button
+                onClick={onToggleDarkMode}
+                variant="secondary"
+                iconName={darkMode ? "Sun" : "Moon"}
+                iconSize={20}
+                className="p-2"
+              >
+              </Button>
+            </div>
           </div>
         </div>
       </div>

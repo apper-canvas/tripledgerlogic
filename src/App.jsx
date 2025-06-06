@@ -6,6 +6,7 @@ import HomePage from '@/components/pages/HomePage'
 import NewTripPage from '@/components/pages/NewTripPage'
 import ManageCategoriesPage from '@/components/pages/ManageCategoriesPage'
 import ManagePaymentModesPage from '@/components/pages/ManagePaymentModesPage'
+import CalendarPage from '@/components/pages/CalendarPage'
 import NotFound from '@/pages/NotFound'
 
 function App() {
@@ -27,10 +28,11 @@ function App() {
     <Router>
       <div className="min-h-screen bg-surface-100 dark:bg-surface-900">
         <Routes>
-          <Route path="/" element={<HomePage darkMode={darkMode} onToggleDarkMode={toggleDarkMode} />} />
+<Route path="/" element={<HomePage darkMode={darkMode} onToggleDarkMode={toggleDarkMode} />} />
           <Route path="/trips/new" element={<NewTripPage darkMode={darkMode} onToggleDarkMode={toggleDarkMode} />} />
           <Route path="/categories" element={<ManageCategoriesPage darkMode={darkMode} onToggleDarkMode={toggleDarkMode} />} />
           <Route path="/payment-modes" element={<ManagePaymentModesPage darkMode={darkMode} onToggleDarkMode={toggleDarkMode} />} />
+          <Route path="/calendar" element={<CalendarPage darkMode={darkMode} onToggleDarkMode={toggleDarkMode} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
