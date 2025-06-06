@@ -5,9 +5,10 @@ import 'react-toastify/dist/ReactToastify.css'
 import HomePage from '@/components/pages/HomePage'
 import NewTripPage from '@/components/pages/NewTripPage'
 import ManageCategoriesPage from '@/components/pages/ManageCategoriesPage'
+import ManagePaymentModesPage from '@/components/pages/ManagePaymentModesPage'
 import NotFound from '@/pages/NotFound'
 
-const App = () => {
+function App() {
   const [darkMode, setDarkMode] = useState(false)
 
   const toggleDarkMode = () => {
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/" element={<HomePage darkMode={darkMode} onToggleDarkMode={toggleDarkMode} />} />
           <Route path="/trips/new" element={<NewTripPage darkMode={darkMode} onToggleDarkMode={toggleDarkMode} />} />
           <Route path="/categories" element={<ManageCategoriesPage darkMode={darkMode} onToggleDarkMode={toggleDarkMode} />} />
+          <Route path="/payment-modes" element={<ManagePaymentModesPage darkMode={darkMode} onToggleDarkMode={toggleDarkMode} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

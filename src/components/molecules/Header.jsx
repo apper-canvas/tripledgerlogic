@@ -27,22 +27,27 @@ const Header = ({ trips, selectedTrip, onSelectTrip, darkMode, onToggleDarkMode 
               />
             </div>
 </div>
-
-          <div className="flex items-center space-x-3">
+<div className="flex items-center space-x-3">
             <Button
-              onClick={() => navigate('/trips/new')}
-              variant="primary"
+              variant="outline"
+              size="sm"
               iconName="Plus"
-              iconSize={16}
+              onClick={() => navigate('/new-trip')}
               className="hidden sm:flex"
             >
               New Trip
             </Button>
-            
             <Button
-              onClick={() => navigate('/categories')}
               variant="outline"
-              iconName="Settings"
+              size="sm"
+              iconName="CreditCard"
+              onClick={() => navigate('/manage-payment-modes')}
+              className="hidden md:flex"
+            >
+              Payment Modes
+            </Button>
+            <Button
+              variant="outline"
               iconSize={16}
               className="hidden sm:flex"
             >

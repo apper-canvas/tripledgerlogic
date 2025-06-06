@@ -3,9 +3,13 @@ import ExpenseCard from '@/components/molecules/ExpenseCard'
 import Icon from '@/components/atoms/Icon'
 import Text from '@/components/atoms/Text'
 
-const ExpenseList = ({ expenses, tripCurrency, categories, onEditExpense, onDeleteExpense, onShowReceipt }) => {
+const ExpenseList = ({ expenses, tripCurrency, categories, paymentModes, onEditExpense, onDeleteExpense, onShowReceipt }) => {
   const getCategoryInfo = (categoryId) => {
     return categories.find(cat => cat.id === categoryId) || categories[3]
+  }
+
+  const getPaymentModeInfo = (paymentModeId) => {
+    return paymentModes?.find(mode => mode.id === paymentModeId) || { name: 'Cash', icon: 'Banknote' }
   }
 
   return (
@@ -17,11 +21,12 @@ const ExpenseList = ({ expenses, tripCurrency, categories, onEditExpense, onDele
       </div>
 
       <div className="divide-y divide-surface-200 dark:divide-surface-700">
-        {expenses.map(expense => (
+{expenses.map(expense => (
           <ExpenseCard
             key={expense.id}
             expense={expense}
             categoryInfo={getCategoryInfo(expense.category)}
+            paymentModeInfo={getPaymentModeInfo(expense.paymentMode)}
             tripCurrency={tripCurrency}
             onEdit={onEditExpense}
             onDelete={onDeleteExpense}

@@ -13,12 +13,14 @@ const ExpenseForm = ({
   editingExpense,
   tripCurrency,
   categories,
-  currencies
+  currencies,
+  paymentModes
 }) => {
-  const initialFormData = {
+const initialFormData = {
     amount: '',
     currency: tripCurrency || 'USD',
     category: 'meals',
+    paymentMode: 'cash',
     merchant: '',
     date: format(new Date(), 'yyyy-MM-dd'),
     notes: '',
@@ -27,11 +29,12 @@ const ExpenseForm = ({
   const [formData, setFormData] = useState(initialFormData)
 
   useEffect(() => {
-    if (editingExpense) {
+if (editingExpense) {
       setFormData({
         amount: editingExpense.amount.toString(),
         currency: editingExpense.currency,
         category: editingExpense.category,
+        paymentMode: editingExpense.paymentMode || 'cash',
         merchant: editingExpense.merchant,
         date: format(new Date(editingExpense.date), 'yyyy-MM-dd'),
         notes: editingExpense.notes || '',
@@ -53,8 +56,9 @@ const ExpenseForm = ({
     onClose()
   }
 
-  const categoryOptions = categories.map(cat => ({ value: cat.id, label: cat.name }))
+const categoryOptions = categories.map(cat => ({ value: cat.id, label: cat.name }))
   const currencyOptions = currencies.map(curr => ({ value: curr, label: curr }))
+  const paymentModeOptions = paymentModes?.map(mode => ({ value: mode.id, label: mode.name })) || []
 
   return (
     <AnimatePresence>
@@ -101,7 +105,7 @@ const ExpenseForm = ({
                 />
               </div>
 
-              <FormField
+<FormField
                 label="Category"
                 as="select"
                 value={formData.category}
@@ -110,6 +114,15 @@ const ExpenseForm = ({
                 name="category"
               />
 
+              <FormField
+                label="Payment Mode"
+                as="select"
+                value={formData.paymentMode}
+                onChange={handleChange}
+                options={paymentModeOptions}
+                name="paymentMode"
+                required
+              />
               <FormField
                 label="Merchant"
                 type="text"
