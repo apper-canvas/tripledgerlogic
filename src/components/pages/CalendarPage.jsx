@@ -6,8 +6,8 @@ import Header from '@/components/molecules/Header'
 import CalendarView from '@/components/organisms/CalendarView'
 import ExpenseForm from '@/components/organisms/ExpenseForm'
 import ReceiptModal from '@/components/organisms/ReceiptModal'
-import { expenseService } from '@/services/api/expenseService'
-import { tripService } from '@/services/api/tripService'
+import expenseService from '@/services/api/expenseService'
+import tripService from '@/services/api/tripService'
 
 const CalendarPage = ({ darkMode, onToggleDarkMode }) => {
   const navigate = useNavigate()
