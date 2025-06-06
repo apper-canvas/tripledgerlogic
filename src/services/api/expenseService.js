@@ -44,13 +44,12 @@ const expenseService = {
     return { ...expenses[index] }
   },
 
-  async delete(id) {
+async delete(id) {
     await delay(250)
     const index = expenses.findIndex(e => e.id === id)
     if (index === -1) throw new Error('Expense not found')
     
     const deleted = expenses.splice(index, 1)[0]
-const deleted = expenses.splice(index, 1)[0]
     return { ...deleted }
   },
 
