@@ -37,23 +37,24 @@ const Header = ({ trips, selectedTrip, onSelectTrip, darkMode, onToggleDarkMode 
             >
               New Trip
             </Button>
-            <Button
+<Button
               variant="outline"
               size="sm"
               iconName="CreditCard"
-              onClick={() => navigate('/manage-payment-modes')}
+              onClick={() => navigate('/payment-modes')}
               className="hidden md:flex"
             >
               Payment Modes
             </Button>
             <Button
               variant="outline"
-              iconSize={16}
+              size="sm"
+              iconName="Tag"
+              onClick={() => navigate('/categories')}
               className="hidden sm:flex"
             >
               Categories
             </Button>
-
             <Button
               onClick={onToggleDarkMode}
               variant="secondary"
