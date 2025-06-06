@@ -17,8 +17,8 @@
     font-variant-numeric: tabular-nums;
   }
   
-  body {
+body {
     font-family: 'Inter', ui-sans-serif, system-ui;
-    @apply bg-surface-50 dark:bg-surface-900 text-surface-900 dark:text-surface-50;
+    @apply bg-surface-100 dark:bg-surface-900 text-surface-900 dark:text-surface-50;
   }
 }
