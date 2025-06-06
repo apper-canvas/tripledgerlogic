@@ -1,11 +1,139 @@
 import React, { useState } from 'react'
-import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay, addMonths, subMonths, parseISO } from 'date-fns'
+import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay, addMonths, subMonths, parseISO, startOfWeek as getWeekStart, endOfWeek as getWeekEnd } from 'date-fns'
 import { motion, AnimatePresence } from 'framer-motion'
+import Chart from 'react-apexcharts'
 import Button from '@/components/atoms/Button'
 import Text from '@/components/atoms/Text'
 import Icon from '@/components/atoms/Icon'
 import TripSelector from '@/components/molecules/TripSelector'
 import CalendarDay from '@/components/atoms/CalendarDay'
+
+// Expense Allocation Chart Component
+const ExpenseAllocationChart = ({ expenses, categories, viewMode, currentDate }) => {
+  // Filter expenses based on current view mode and date
+  const getFilteredExpenses = () => {
+    return expenses.filter(expense => {
+      const expenseDate = parseISO(expense.date)
+      
+      if (viewMode === 'month') {
+        const monthStart = startOfMonth(currentDate)
+        const monthEnd = endOfMonth(currentDate)
+        return expenseDate >= monthStart && expenseDate <= monthEnd
+      } else if (viewMode === 'week') {
+        const weekStart = getWeekStart(currentDate)
+        const weekEnd = getWeekEnd(currentDate)
+        return expenseDate >= weekStart && expenseDate <= weekEnd
+      } else {
+        return isSameDay(expenseDate, currentDate)
+      }
+    })
+  }
+
+  const filteredExpenses = getFilteredExpenses()
+
+  // Aggregate expenses by category
+  const categoryData = categories.map(category => {
+    const categoryExpenses = filteredExpenses.filter(expense => expense.category === category.id)
+    const total = categoryExpenses.reduce((sum, expense) => sum + expense.amount, 0)
+    return {
+      category: category.name,
+      total,
+      count: categoryExpenses.length,
+      color: getCategoryColor(category.id).replace('bg-', '#').replace('-500', '')
+    }
+  }).filter(item => item.total > 0)
+
+  const getCategoryColor = (categoryId) => {
+    const colors = {
+      transport: '#3B82F6',
+      accommodation: '#10B981',
+      meals: '#F59E0B',
+      other: '#8B5CF6'
+    }
+    return colors[categoryId] || '#6B7280'
+  }
+
+  if (categoryData.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center h-48 text-surface-500 dark:text-surface-400">
+        <Icon name="PieChart" className="h-12 w-12 mb-3" />
+        <Text className="text-sm">No expenses for this period</Text>
+      </div>
+    )
+  }
+
+  const chartOptions = {
+    chart: {
+      type: 'pie',
+      height: 280,
+      background: 'transparent'
+    },
+    labels: categoryData.map(item => item.category),
+    colors: categoryData.map(item => item.color),
+    dataLabels: {
+      enabled: true,
+      formatter: function(val, opts) {
+        return Math.round(val) + '%'
+      },
+      style: {
+        fontSize: '12px',
+        fontWeight: '600'
+      }
+    },
+    plotOptions: {
+      pie: {
+        donut: {
+          size: '45%'
+        }
+      }
+    },
+    tooltip: {
+      theme: 'dark',
+      y: {
+        formatter: function(val, opts) {
+          const item = categoryData[opts.seriesIndex]
+          return `$${val.toFixed(2)} (${item.count} expenses)`
+        }
+      }
+    },
+    legend: {
+      position: 'bottom',
+      fontSize: '12px',
+      markers: {
+        width: 8,
+        height: 8,
+        radius: 4
+      }
+    },
+    responsive: [{
+      breakpoint: 480,
+      options: {
+        legend: {
+          position: 'bottom',
+          fontSize: '10px'
+        }
+      }
+    }]
+  }
+
+  const chartSeries = categoryData.map(item => item.total)
+
+  return (
+    <div className="w-full">
+      <Chart
+        options={chartOptions}
+        series={chartSeries}
+        type="pie"
+        height={280}
+      />
+      <div className="mt-4 text-center">
+        <Text className="text-xs text-surface-600 dark:text-surface-400">
+          Total: ${filteredExpenses.reduce((sum, expense) => sum + expense.amount, 0).toFixed(2)}
+        </Text>
+      </div>
+    </div>
+  )
+}
 
 const CalendarView = ({
   trips,
@@ -308,25 +436,41 @@ const CalendarView = ({
           {viewMode === 'day' && renderDayView()}
         </motion.div>
       </AnimatePresence>
+</AnimatePresence>
 
-      {/* Legend */}
-      <div className="bg-white dark:bg-surface-800 rounded-2xl shadow-card border border-surface-200 dark:border-surface-700 p-4">
-        <Text className="text-sm font-medium text-surface-900 dark:text-surface-100 mb-3">
-          Categories
-        </Text>
-        <div className="flex flex-wrap gap-4">
-          {categories.map(category => (
-            <div key={category.id} className="flex items-center gap-2">
-              <div className={`w-3 h-3 rounded-full ${getCategoryColor(category.id)}`} />
-              <Text className="text-sm text-surface-600 dark:text-surface-400">
-                {category.name}
-              </Text>
-            </div>
-          ))}
+      {/* Expense Analytics */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Legend */}
+        <div className="bg-white dark:bg-surface-800 rounded-2xl shadow-card border border-surface-200 dark:border-surface-700 p-4">
+          <Text className="text-sm font-medium text-surface-900 dark:text-surface-100 mb-3">
+            Categories
+          </Text>
+          <div className="flex flex-wrap gap-4">
+            {categories.map(category => (
+              <div key={category.id} className="flex items-center gap-2">
+                <div className={`w-3 h-3 rounded-full ${getCategoryColor(category.id)}`} />
+                <Text className="text-sm text-surface-600 dark:text-surface-400">
+                  {category.name}
+                </Text>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Expense Allocation Chart */}
+        <div className="bg-white dark:bg-surface-800 rounded-2xl shadow-card border border-surface-200 dark:border-surface-700 p-4">
+          <Text className="text-sm font-medium text-surface-900 dark:text-surface-100 mb-3">
+            Expense Allocation
+          </Text>
+          <ExpenseAllocationChart
+            expenses={expenses}
+            categories={categories}
+            viewMode={viewMode}
+            currentDate={currentDate}
+          />
         </div>
       </div>
     </div>
   )
-}
 
 export default CalendarView

@@ -95,31 +95,41 @@ const CalendarDay = ({
               />
             </div>
             
-            <div className="space-y-2 max-h-48 overflow-y-auto">
+<div className="space-y-2 max-h-48 overflow-y-auto">
               {expenses.map(expense => (
                 <div
                   key={expense.id}
-                  className="flex items-center justify-between p-2 rounded-lg hover:bg-surface-50 dark:hover:bg-surface-700 cursor-pointer"
+                  className="flex flex-col p-3 rounded-lg hover:bg-surface-50 dark:hover:bg-surface-700 cursor-pointer border border-surface-100 dark:border-surface-600"
                   onClick={(e) => {
                     e.stopPropagation()
                     onEditExpense(expense)
                     setShowExpenses(false)
                   }}
                 >
-                  <div className="flex items-center gap-2 flex-1 min-w-0">
-                    <div className={`w-3 h-3 rounded-full ${getCategoryColor(expense.category)}`} />
-                    <div className="min-w-0 flex-1">
-                      <Text className="text-sm font-medium text-surface-900 dark:text-surface-100 truncate">
-                        {expense.merchant}
-                      </Text>
-                      <Text className="text-xs text-surface-600 dark:text-surface-400">
-                        {categories.find(c => c.id === expense.category)?.name}
-                      </Text>
+                  <div className="flex items-start justify-between mb-2">
+                    <div className="flex items-center gap-2 flex-1 min-w-0">
+                      <div className={`w-3 h-3 rounded-full ${getCategoryColor(expense.category)}`} />
+                      <div className="min-w-0 flex-1">
+                        <Text className="text-sm font-medium text-surface-900 dark:text-surface-100 truncate">
+                          {expense.merchant}
+                        </Text>
+                        <Text className="text-xs text-surface-600 dark:text-surface-400">
+                          {categories.find(c => c.id === expense.category)?.name || 'Other'}
+                        </Text>
+                      </div>
                     </div>
+                    <Text className="text-sm font-semibold text-surface-900 dark:text-surface-100">
+                      {new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: expense.currency || 'USD'
+                      }).format(expense.amount)}
+                    </Text>
                   </div>
-                  <Text className="text-sm font-semibold text-surface-900 dark:text-surface-100">
-                    {expense.amount}
-                  </Text>
+                  {expense.tripId && (
+                    <Text className="text-xs text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900 px-2 py-1 rounded-md">
+                      Trip: {expense.tripName || 'Unknown Trip'}
+                    </Text>
+                  )}
                 </div>
               ))}
             </div>
