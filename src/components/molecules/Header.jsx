@@ -3,12 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import Icon from '@/components/atoms/Icon'
 import Text from '@/components/atoms/Text'
 import Button from '@/components/atoms/Button'
-import TripSelector from '@/components/molecules/TripSelector'
 
 const Header = ({ trips, selectedTrip, onSelectTrip, darkMode, onToggleDarkMode }) => {
   const navigate = useNavigate()
-  const tripOptions = [{ value: '', label: 'Select Trip' }, ...trips.map(trip => ({ value: trip.id, label: trip.name }))]
-
   return (
     <header className="bg-white dark:bg-surface-800 shadow-soft border-b border-surface-200 dark:border-surface-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
