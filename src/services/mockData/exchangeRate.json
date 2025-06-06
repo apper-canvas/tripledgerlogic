@@ -1,0 +1,107 @@
+[
+  {
+    "id": "1",
+    "fromCurrency": "USD",
+    "toCurrency": "EUR",
+    "rate": 0.85,
+    "timestamp": "2024-02-15T10:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "fromCurrency": "EUR",
+    "toCurrency": "USD",
+    "rate": 1.18,
+    "timestamp": "2024-02-15T10:00:00.000Z"
+  },
+  {
+    "id": "3",
+    "fromCurrency": "USD",
+    "toCurrency": "GBP",
+    "rate": 0.79,
+    "timestamp": "2024-02-15T10:00:00.000Z"
+  },
+  {
+    "id": "4",
+    "fromCurrency": "GBP",
+    "toCurrency": "USD",
+    "rate": 1.27,
+    "timestamp": "2024-02-15T10:00:00.000Z"
+  },
+  {
+    "id": "5",
+    "fromCurrency": "USD",
+    "toCurrency": "JPY",
+    "rate": 149.85,
+    "timestamp": "2024-02-15T10:00:00.000Z"
+  },
+  {
+    "id": "6",
+    "fromCurrency": "JPY",
+    "toCurrency": "USD",
+    "rate": 0.0067,
+    "timestamp": "2024-02-15T10:00:00.000Z"
+  },
+  {
+    "id": "7",
+    "fromCurrency": "USD",
+    "toCurrency": "CAD",
+    "rate": 1.35,
+    "timestamp": "2024-02-15T10:00:00.000Z"
+  },
+  {
+    "id": "8",
+    "fromCurrency": "CAD",
+    "toCurrency": "USD",
+    "rate": 0.74,
+    "timestamp": "2024-02-15T10:00:00.000Z"
+  },
+  {
+    "id": "9",
+    "fromCurrency": "USD",
+    "toCurrency": "AUD",
+    "rate": 1.52,
+    "timestamp": "2024-02-15T10:00:00.000Z"
+  },
+  {
+    "id": "10",
+    "fromCurrency": "AUD",
+    "toCurrency": "USD",
+    "rate": 0.66,
+    "timestamp": "2024-02-15T10:00:00.000Z"
+  },
+  {
+    "id": "11",
+    "fromCurrency": "USD",
+    "toCurrency": "CHF",
+    "rate": 0.88,
+    "timestamp": "2024-02-15T10:00:00.000Z"
+  },
+  {
+    "id": "12",
+    "fromCurrency": "CHF",
+    "toCurrency": "USD",
+    "rate": 1.14,
+    "timestamp": "2024-02-15T10:00:00.000Z"
+  },
+  {
+    "id": "13",
+    "fromCurrency": "EUR",
+    "toCurrency": "GBP",
+    "rate": 0.87,
+    "timestamp": "2024-02-15T10:00:00.000Z"
+  },
+  {
+    "id": "14",
+    "fromCurrency": "GBP",
+    "toCurrency": "EUR",
+    "rate": 1.15,
+    "timestamp": "2024-02-15T10:00:00.000Z"
+  },
+  {
+    "id": "15",
+    "fromCurrency": "EUR",
+    "toCurrency": "JPY",
+    "rate": 162.75,
+    "timestamp": "2024-02-15T10:00:00.000Z"
+  }
+]
