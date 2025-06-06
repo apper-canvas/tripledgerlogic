@@ -1,10 +1,12 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import Icon from '@/components/atoms/Icon'
 import Text from '@/components/atoms/Text'
 import Button from '@/components/atoms/Button'
 import TripSelector from '@/components/molecules/TripSelector'
 
 const Header = ({ trips, selectedTrip, onSelectTrip, darkMode, onToggleDarkMode }) => {
+  const navigate = useNavigate()
   const tripOptions = [{ value: '', label: 'Select Trip' }, ...trips.map(trip => ({ value: trip.id, label: trip.name }))]
 
   return (
@@ -24,17 +26,38 @@ const Header = ({ trips, selectedTrip, onSelectTrip, darkMode, onToggleDarkMode 
                 options={tripOptions}
               />
             </div>
-          </div>
+</div>
 
-          <Button
-            onClick={onToggleDarkMode}
-            variant="secondary"
-            iconName={darkMode ? "Sun" : "Moon"}
-            iconSize={20}
-            className="p-2" // Override default padding
-          >
-            {/* No children if icon is present and no text is desired */}
-          </Button>
+          <div className="flex items-center space-x-3">
+            <Button
+              onClick={() => navigate('/trips/new')}
+              variant="primary"
+              iconName="Plus"
+              iconSize={16}
+              className="hidden sm:flex"
+            >
+              New Trip
+            </Button>
+            
+            <Button
+              onClick={() => navigate('/categories')}
+              variant="outline"
+              iconName="Settings"
+              iconSize={16}
+              className="hidden sm:flex"
+            >
+              Categories
+            </Button>
+
+            <Button
+              onClick={onToggleDarkMode}
+              variant="secondary"
+              iconName={darkMode ? "Sun" : "Moon"}
+              iconSize={20}
+              className="p-2"
+            >
+            </Button>
+          </div>
         </div>
       </div>
     </header>
